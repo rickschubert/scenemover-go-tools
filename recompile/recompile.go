@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"path/filepath"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/rickschubert/scenemover/utils"
@@ -80,11 +79,7 @@ func LaunchWatcher() {
 				}
 				logDebugEvents(event)
 				disableWatching(watcher)
-				if event.Name == filepath.Base(scriptLocation) {
-					log.Println("You changed the script - let's do something about it!")
-				} else {
-					recompile()
-				}
+				recompile()
 				enableWatching(watcher)
 			case err, ok := <-watcher.Errors:
 				if !ok {
