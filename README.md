@@ -6,3 +6,15 @@ Using go routines, the program spawns at launch a file watcher which looks for c
 
 # Development
 - Run `CompileDaemon -command="./scenemover" -exclude-dir ".git" -exclude-dir "scenes" -verbose` to automatically always restart the script should something change (this uses https://github.com/githubnemo/CompileDaemon)
+
+# Build
+- Compile for windows:
+
+```sh
+GOOS=windows GOARCH=amd64 go build -o scenemover main.go
+```
+
+- Compile for Mac:
+```sh
+GOOS=darwin GOARCH=amd64 go build -o scenemover main.go
+```
