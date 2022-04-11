@@ -11,7 +11,7 @@ Using go routines, the program spawns at launch a file watcher which looks for c
 - Compile for windows:
 
 ```sh
-GOOS=windows GOARCH=amd64 go build -o scenemover main.go
+GOOS=windows GOARCH=amd64 go build -o scenemover.exe main.go
 ```
 
 - Compile for Mac:
