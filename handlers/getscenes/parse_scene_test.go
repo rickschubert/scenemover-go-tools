@@ -31,6 +31,29 @@ Not in trend this year anyway.
 	assert.NoError(t, err)
 }
 
+func TestParseSceneWithMontageTitle(t *testing.T) {
+	standardScene := `
+MILITARY TRAINING MONTAGE
+
+-- Self-defence class: Tess' trainer beckons her to punch him. She hits him in the stomach. He doesn't even flinch and instead throws her to the ground.
+-- Firing range: Tess fires a handgun at a distant target. Only two out of nine shots hit at all.
+-- Gym: Tess performs a set of jumping jacks and pances heavily.
+-- Firing range: The shooting instructur demonstrates the firing pose. Tess imitates the pose. The instructor corrects her stance.
+-- Gym: Tess struggles at the butterfly press machine.
+-- Coffee shop: Tess stands in the queue for coffee. Her watch beeps with an alarm - she leaves the shop and starts doing jumping jacks right on the street. People stare at her.
+-- Firing range: Tess presents the instructor with a target paper perforated nine times close to the center. The instructur looks incredulous and points to a rifle behind his shoulder.
+-- Gym: Tess squats a massing rack of barbells.
+-- Firing range: Tess fires a half-automatic rifle, ... a submachine gun, ... a sniper rifle, ... a fully automatic machine gun M4.
+-- Self-defence class: Tess punches her trainer again in the stomach. He hunches over in pain as she moves her leg under his knee bend and throws him to the ground. She tries to elbow him in the face which he can just about so fence off before begging for a time out.
+
+END MILITARY TRAINING MONTAGE
+`
+	scene, err := parseScene([]byte(standardScene), "./scenes/02_standard.fountain")
+	assert.Equal(t, "MILITARY TRAINING MONTAGE", scene.Title)
+	assert.Equal(t, "02_standard.fountain", scene.File)
+	assert.NoError(t, err)
+}
+
 func TestParseSceneWithoutTitle(t *testing.T) {
 	sceneWithNoTitle := `
 Tess bursts out of the water in the middle of a crowded swimming pool. She crosses two lanes to reach the side. An eldery lady back crawls past Tess looking bewildered.

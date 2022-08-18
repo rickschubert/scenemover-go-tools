@@ -23,14 +23,21 @@ type Scene struct {
 func getTitle(fullSceneContent []byte) (string, error) {
 	var err error
 
-	// If it is the title page, get its title instead
-	regularExpression := regexp.MustCompile(`(?m)Title\:.+$`)
-	title := regularExpression.FindString(string(fullSceneContent))
+	// If the title page, get its title instead
+	titleRegex := regexp.MustCompile(`(?m)Title\:.+$`)
+	title := titleRegex.FindString(string(fullSceneContent))
 	if title != "" {
 		return title, nil
 	}
 
-	// If it's not tje title page, use fountain parser
+	// If a montage (no INT. or EXT.), get its title instead
+	montageRegex := regexp.MustCompile(`(?m)(.+)?MONTAGE(.+)?$`)
+	title = montageRegex.FindString(string(fullSceneContent))
+	if title != "" {
+		return title, nil
+	}
+
+	// If not the title page, use fountain parser
 	fountainDoc, err := fountain.Parse(fullSceneContent)
 	if err != nil {
 		return "", err
